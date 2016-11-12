@@ -23,7 +23,7 @@ login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback 
     if(err) return console.error(err);
 
     api.getThreadHistory(ThreadID, start, end, timestamp, function callback(err, history) {
-        if(err) return console.error(err);
+        if(err!=null) return console.error(err);
         
         else console.log(history);
     });
