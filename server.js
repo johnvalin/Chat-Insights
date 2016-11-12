@@ -37,8 +37,17 @@ login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback 
         }
 	
 	var result = [];
+	var name = history[0].senderName;
+	var time = history[0].timestamp;
 	for (var message in history) {
-    		result.push({senderName: history[message].senderName, timestamp: history[message].timestamp});
+		if (history[message].senderName != name) {
+    			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
+		name = history[message].senderName;
+		time = history[message].timestamp;
+		}
+		else {
+			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: null, body: history[message].body});
+		}
 	}
 
 	console.log(result);
@@ -48,4 +57,3 @@ login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback 
     });
     
 });
-
