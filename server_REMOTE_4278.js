@@ -21,20 +21,10 @@ var login = require("facebook-chat-api");
 // Gets the thread history
 login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
-    
-    api.getThreadList(0, 4, 'inbox', function callback (err, arr) {
-        console.log(arr);
-    });
-    
-    api.getThreadHistory('100002528536269', 1, 4, null, function callback (error, history) {
-        if (error) console.error(error);
+
+    api.getThreadHistory(ThreadID, start, end, timestamp, function callback(err, history) {
+        if(err!=null) return console.error(err);
         
-        for (var i = 0; i < history.length; i++) {
-            api.sendMessage(history[i].body, history[i].threadId);
-        }
+        else console.log(history);
     });
-    
-    //api.listen(function callback(err, message) {
-    //    api.sendMessage(message.body, message.threadID);
-    //});
 });
