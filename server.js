@@ -1,5 +1,9 @@
 var http = require('http');
 var login = require("facebook-chat-api");
+var ThreadID = 1142870729093699; //Thread ID for our groupchat
+var start = 1;
+var end = 20;
+var timestamp = "2016-10-30T08:30:00+00:00";
 
 
 http.createServer(function (request, response) {
