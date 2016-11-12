@@ -1,6 +1,6 @@
 # Chat-Insights
 
-A Dashboard for Facebook Messenger Analytics
+A dashboard for Facebook Messenger analytics.
 
 ## Dependencies
 ### facebook-chat-api by Schmavery
