@@ -5,6 +5,8 @@ A dashboard for Facebook Messenger analytics.
 ## Dependencies
 ### facebook-chat-api by Schmavery
 https://github.com/Schmavery/facebook-chat-api
+### natural by NaturalNode
+https://github.com/NaturalNode/natural
 
 ## Authors
 * **Arun Arjunakani** - [arunarjunakani](https://github.com/arunarjunakani)
