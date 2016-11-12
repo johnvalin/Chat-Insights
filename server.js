@@ -1,9 +1,8 @@
 var http = require('http');
 var login = require("facebook-chat-api");
-var ThreadID = 1142870729093699; //Thread ID for our groupchat
 var start = 1;
-var end = 500;
-var timestamp = 1478963082; //"2016-10-30T08:30:00+00:00";
+var end = 50;
+var timestamp = null;
 
 
 http.createServer(function (request, response) {
@@ -22,19 +21,31 @@ var login = require("facebook-chat-api");
 login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
     
-    api.getThreadList(0, 4, 'inbox', function callback (err, arr) {
-        console.log(arr);
-    });
+    function getAllHistory(threadID, n, cb) {        
+        api.getThreadHistory(threadID, 1, n, null, function callback(error, history) {
+            if (history.length === n) getAllHistory(threadID, n * 10, cb);
+            else cb(error, history);
+        });
+    }
     
-    api.getThreadHistory('100002528536269', 1, 4, null, function callback (error, history) {
+//gets all the history for the conversation between john and the bot.
+    getAllHistory('100002528536269', end, function callback (error, history) {
         if (error) console.error(error);
-        
-        for (var i = 0; i < history.length; i++) {
-            api.sendMessage(history[i].body, history[i].threadId);
+        console.log(history);
+	for (var i = 0; i < history.length; i++) {
+            console.log(history[i].body, history[i].threadID);
         }
+	
+	var result = [];
+	for (var message in history) {
+    		result.push({senderName: history[message].senderName, timestamp: history[message].timestamp});
+	}
+
+	console.log(result);
+
+	
+
     });
     
-    //api.listen(function callback(err, message) {
-    //    api.sendMessage(message.body, message.threadID);
-    //});
 });
+
