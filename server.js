@@ -3,7 +3,7 @@ var login = require("facebook-chat-api");
 var ThreadID = 1142870729093699; //Thread ID for our groupchat
 var start = 1;
 var end = 500;
-var timestamp; //"2016-10-30T08:30:00+00:00";
+var timestamp = 1478963082; //"2016-10-30T08:30:00+00:00";
 
 
 http.createServer(function (request, response) {
@@ -18,7 +18,7 @@ http.createServer(function (request, response) {
 
 var login = require("facebook-chat-api");
 
-// Create simple echo bot
+// Gets the thread history
 login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
 
