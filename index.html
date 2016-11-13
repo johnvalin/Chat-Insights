@@ -9,10 +9,29 @@
 </head>
 
 <body>
-    <h3 onclick="refresh()">Median response time per hour</h3>
-    <div id="myDiv" style="width: 800px; height: 600px;"></div>
+    <table>
+        <tr>
+            <td>
+                <div id="myDiv" style="width: 800px; height: 600px;"></div>
+            </td>
+            <td>
+                <table>
+                    <tr></tr>
+                    <td>Number of mean messages</td>
+                    <td>Total Number of Messages</td>
+                    <td>Percentage</td>
+                    <tr></tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <td></td>
 
     <button onclick="refresh()">Refresh</button>
+
     <script>
         var json = {};
         refresh();
