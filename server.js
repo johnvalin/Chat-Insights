@@ -19,6 +19,8 @@ var login = require("facebook-chat-api");
 // Gets the thread history
 login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
+    
+    console.log('hi');
 
     function getAllHistory(threadID, n, cb) {        
         api.getThreadHistory(threadID, 1, n, null, function callback(error, history) {
@@ -26,29 +28,35 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
             else cb(error, history);
         });
     }
+    
+    console.log('hi2');
 
     api.getThreadList(start, end, 'inbox', function callback (error, threadList) {
         
     	for(var j = 0; j < threadList.length; j++) {
+    	
+    	    console.log('h4');
 
 	    //gets all the history for each thread
-	    getAllHistory('threadList[i]', end, function callback (error, history) {
+	    getAllHistory(threadList[j].threadID, 100, function callback (error, history) {
 	        if (error) console.error(error);
 	        //console.log(history);
 		
-		var result = [];
-		var name = history[0].senderName;
-		var time = history[0].timestamp;
-		for (var message in history) {
-			if (history[message].senderName != name) {
-	    			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
-			name = history[message].senderName;
-			time = history[message].timestamp;
-			}
-			else {
-				result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: null, body: history[message].body});
-			}
-		}
+		    console.log('hi3');
+		
+		    var result = [];
+		    var name = history[0].senderName;
+		    var time = history[0].timestamp;
+		    for (var message in history) {
+			    if (history[message].senderName != name) {
+	        			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
+			    name = history[message].senderName;
+			    time = history[message].timestamp;
+			    }
+			    else {
+				    result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: null, body: history[message].body});
+			    }
+		    }
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
 	var table = "Threads"; // that's the name of the table in AWS
@@ -79,6 +87,8 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 	//console.log(result);
 	//put the results (items) in the table one by one
     });
+	
+	console.log('fuck callbacks');
 	
 	}
     });
