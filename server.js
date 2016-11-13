@@ -18,7 +18,7 @@ http.createServer(function (request, response) {
 var login = require("facebook-chat-api");
 
 // Gets the thread history
-login({email: "i950770@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
+login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
     
     function getAllHistory(threadID, n, cb) {        
