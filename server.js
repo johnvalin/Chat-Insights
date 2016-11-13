@@ -29,6 +29,13 @@ var notbullyID = 1283400935053809; //ThreadID for nonbullying training data
 login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     var docClient = new AWS.DynamoDB.DocumentClient();    
     if(err) return console.error(err);
+	
+      function getAllHistory(threadID, n, cb) {        
+         api.getThreadHistory(threadID, 1, n, null, function callback(error, history) {
+             if (history.length === n) getAllHistory(threadID, n * 10, cb);
+              else cb(error, history);
+          });
+      }
 
 	function checkConvo(classifier, conversationID) {
 	    getAllHistory(conversationID, 100, function callback(error, history) {
@@ -117,6 +124,9 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
         // NATURAL LANGUAGE PROCESSING
 		getAllHistory(bullyID, 100, function callback(error, history) {
             if (error) console.error(error);
+
+	    // Initialize natural language classifier
+	    classifier = new natural.BayesClassifier();
             
             for (var i = 0; i < history.length; i++) {
                 if (history[i].body !== undefined) {
