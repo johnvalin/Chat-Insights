@@ -21,9 +21,9 @@ var conversationID = 100009779980369; // ThreadID for conversation to analyze
 login({email: testEmail, password: testPassword}, function callback (err, api) {
     if (err) return console.error(err);
     
-    api.getThreadList(0, 8, 'inbox', function callback (err, arr) {
-        console.log(arr);
-    });
+    //api.getThreadList(0, 8, 'inbox', function callback (err, arr) {
+    //    console.log(arr);
+    //});
     
     function getAllHistory(threadID, n, cb) {        
         api.getThreadHistory(threadID, 1, n, null, function callback(error, history) {
@@ -57,6 +57,7 @@ login({email: testEmail, password: testPassword}, function callback (err, api) {
                     
                     for (var name in totalCounts) {
                         console.log(name, ': ', bullyCounts[name], ' / ', totalCounts[name]);
+                        // UPDATE DATABASE HERE
                     }
                 });
             });
@@ -98,8 +99,9 @@ login({email: testEmail, password: testPassword}, function callback (err, api) {
                 api.getUserInfo(message.senderID, function cb(err, obj) {
                     var senderName = obj[message.senderID].name;
                     if (message.body !== undefined) {
-                        // add 1 to total count in database for this name
-                        if (classifier.classify(message.body) === 'bully') ; // add 1
+                        // READ DATABASE HERE
+                        // UPDATE DATABASE HERE: add 1 to total count in database for this name
+                        if (classifier.classify(message.body) === 'bully') ; // UPDATE DATABASE HERE
                     }
                 }
             });
