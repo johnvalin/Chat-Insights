@@ -7,10 +7,14 @@ var timestamp = null;
 
 var AWS = require("aws-sdk");
 
+
 AWS.config.update({
     region: "us-east-1", // doesn't matter while it's local but I'm running this out of Virginia so will matter when we go live
-    endpoint: "http://localhost:8000" // if you have anything running on port 8000, dynamo will crash unless you specify it
-});
+    endpoint: "https://dynamodb.us-east-1.amazonaws.com"
+// Access keys are enviro variables
+}); 
+
+
 
 // Create server
 http.createServer(function (request, response) {
