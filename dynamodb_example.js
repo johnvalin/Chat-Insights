@@ -18,13 +18,14 @@ var params = {
         { AttributeName: "ThreadID", KeyType: "HASH" }, //Partition key - I actually have no fucking clue what HASH means so just go with it
     ],
     AttributeDefinitions: [
-        { AttributeName: "participantIDs", AttributeType: "SS" },
-        { AttributeName: "name", AttributeType: "S" },
-        { AttributeName: "emoji", AttributeType: "S" },
-        { AttributeName: "nicknames", AttributeType: "M" },
-        { AttributeName: "color", AttributeType: "S" },
-        { AttributeName: "lastInfo", AttributeType: "M" },
-        { AttributeType: "messages", AttributeType: "SS" } // SS might be incorrect. I hope it isn't. 
+        { AttributeName: "ThreadID", AttributeType: "S" },
+        // { AttributeName: "participantIDs", AttributeType: "SS" },
+        //        { AttributeName: "name", AttributeType: "S" },
+        //      { AttributeName: "emoji", AttributeType: "S" },
+        //{ AttributeName: "nicknames", AttributeType: "M" },
+        //    { AttributeName: "color", AttributeType: "S" },
+        // { AttributeName: "lastInfo", AttributeType: "M" },
+        //  { AttributeName: "messages", AttributeType: "SS" } // SS might be incorrect. I hope it isn't. 
     ],
     ProvisionedThroughput: { // I don't know what this means
         ReadCapacityUnits: 5,
@@ -60,16 +61,20 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var table = "Threads"; // that's the name of the table in AWS
 
 
+var table = "Threads"; // that's the name of the table in AWS
+
+
 var params = {
     TableName: table,
     Item: {
-        "participantIDs": "FILL THIS IN WITH ACTUAL SHIT",
-        "name": "SAME AS ABOVE",
-        "emoji": "SAME AS ABOVE",
-        "nicknames": "SAME AS ABOVE - make sure this is a MAP",
-        "color": "SAME AS ABOVE",
-        "lastInfo": "NOTE THIS IS A MAP",
-        "messages": "THIS IS A SET OF STRINGS IDK HOW THAT WORKS"
+        "ThreadID": "FUCK THIS", // string
+        "participantIDs": "FILL THIS IN WITH ACTUAL SHIT", // set of strings
+        "name": "SAME AS ABOVE", // string
+        "emoji": "SAME AS ABOVE", //string (no chars allowed)
+        "nicknames": "SAME AS ABOVE - make sure this is a MAP", // MAP of IDs to nicknames
+        "color": "SAME AS ABOVE", // string #ffffff for example
+        "lastInfo": "NOTE THIS IS A MAP", // map of last user and last message
+        "messages": "THIS IS A SET OF STRINGS IDK HOW THAT WORKS" // set of jsons with messages
 
     }
 };
