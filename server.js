@@ -42,7 +42,7 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 	        var name = history[0].senderName;
 	        var time = history[0].timestamp;
 	        for (var message in history) {
-			console.log(history[message].body);
+			console.log(history[message]);
 			if (history[message].body === undefined || history[message].body == "") {
 			    continue;
 			}
@@ -58,6 +58,7 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
             var docClient = new AWS.DynamoDB.DocumentClient();
 
             var table = "Threads"; // that's the name of the table in AWS
+	    console.log(result);
             var params = {
                 TableName: table,
                 Item: {
@@ -71,11 +72,13 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 
             console.log("Adding a new item...");
 	    console.log(params);
+	    console.log(params.messages);
             docClient.put(params, function(err, data) {
                 if (err) {
                     console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
                 } else {
                     console.log("Added item:", JSON.stringify(data, null, 2));
+		    console.log(data);
                 }
             });
         //console.log(result);
