@@ -2,7 +2,7 @@ var http = require('http');
 var login = require("facebook-chat-api");
 var natural = require('natural');
 
-var testEmail = "i950770@mvrht.com";
+var testEmail = "i1029456@mvrht.com";
 var testPassword = "uberhacks3.0";
 
 // Create server
@@ -15,9 +15,9 @@ http.createServer(function (request, response) {
 }).listen(1337);
 
 // Get Messenger data
-var bullyID = 1120837944702683; //ThreadID for bullying test data
-var notbullyID = 1283400935053809; //ThreadID for nonbullying test data
-var conversationID = 100009779980369; // ThreadID between Ray and test account
+var bullyID = 1120837944702683; //ThreadID for bullying training data
+var notbullyID = 1283400935053809; //ThreadID for nonbullying training data
+var conversationID = 100009779980369; // ThreadID for conversation to analyze
 login({email: testEmail, password: testPassword}, function callback (err, api) {
     if (err) return console.error(err);
     
@@ -92,10 +92,12 @@ login({email: testEmail, password: testPassword}, function callback (err, api) {
             classifier.train();
             
             checkConvo(classifier);
-        });
-    });
     
-    api.listen(function callback(error, message) {
-        // Check for bullying
+            // Listener
+            api.listen(function callback(error, message) {
+                console.log(message.senderID);
+                // add 1 to total in database under senderName
+            });
+        });
     });
 });
