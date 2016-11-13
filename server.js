@@ -38,7 +38,7 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
     	for(var j = 0; j < threadList.length; j++) {
 
 	    //gets all the history for each thread
-	    getAllHistory('threadList[i]', end, function callback (error, history) {
+	    getAllHistory(threadList[j].threadID, end, function callback (error, history) {
 	        if (error) console.error(error);
 	        //console.log(history);
 		
@@ -58,7 +58,7 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
 	var table = "Threads"; // that's the name of the table in AWS
-	
+	console.log(threadList);
 	var params = {
 	    TableName: table,
 	    Item: {
