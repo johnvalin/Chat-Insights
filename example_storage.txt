@@ -8,8 +8,6 @@
      '100009779980369',
      '100014005007290' ],
   name: 'Bullying',
-  snippet: 'yo',
-  messageCount: 47,
   emoji: { emoji: '❤' },
   nicknames: { '100002340285204': 'Bonobo' },
   color: '#7646ff' }
@@ -17,9 +15,15 @@
    { senderName: 'Lotaly Tegit',
    timestamp: 1478976601434,
    body: 'asdfd' },
-   
+
    { senderName: 'Lotaly Tegit',
    timestamp: 1478976605418,
    body: 'asdf' }
    ]
 }
+
+
+
+--- COMMENTS BELOW ---
+
+This is only what the API gives us. We will be putting different things in DynamoDB. 
