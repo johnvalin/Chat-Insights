@@ -11,17 +11,17 @@
 <body>
     <h3 onclick="refresh()">Median response time per hour</h3>
     <div id="myDiv" style="width: 800px; height: 600px;"></div>
-    <button id="refreshButton">Refresh</button>
+
+    <button onclick="refresh()">Refresh</button>
     <script>
-        $.getJSON("data.json", function(json) {
-            console.log("JSON Data: " + json.Timestamps);
-            $("#refreshButton").click(function(){
-              refresh();
-            });
+        var json = {};
+        refresh();
+        console.log(json);
 
-            refresh();
-
-            function refresh() {
+        function refresh() {
+            $.getJSON("data.json", function(dataJson) {
+                json = dataJson;
+                console.log("JSON Data: " + dataJson);
                 //This converts null values into the data point before it.
                 for (var i = 0; i < json["Delta"].length; i++) {
                     if (json["Delta"][i] == null) {
@@ -230,7 +230,7 @@
                     } else {
                         times = times[times.length / 2];
                     }
-                    jsonDataAdjusted["Median"][i] = times/1000;
+                    jsonDataAdjusted["Median"][i] = times / 1000;
                 }
 
                 console.log(jsonDataAdjusted)
@@ -243,9 +243,17 @@
 
                 var data = [medianResponseTime]; //Add ",trace2" for another line
 
-                Plotly.newPlot('myDiv', data, {title: "Median Message Response Time by the Hour", xaxis: {title: "Time (24 Hour)"}, yaxis: {title: "Response Time (Seconds)"}});
-            }
-        });
+                Plotly.newPlot('myDiv', data, {
+                    title: "Median Message Response Time by the Hour",
+                    xaxis: {
+                        title: "Time (24 Hour)"
+                    },
+                    yaxis: {
+                        title: "Response Time (Seconds)"
+                    }
+                });
+            });
+        }
     </script>
 </body>
 
