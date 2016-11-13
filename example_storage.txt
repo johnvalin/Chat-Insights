@@ -10,7 +10,8 @@
   name: 'Bullying',
   emoji: { emoji: '❤' },
   nicknames: { '100002340285204': 'Bonobo' },
-  color: '#7646ff' }
+  color: '#7646ff',
+  lastInfo: {'LASTUSERID : 'TOTALMESSAGESSINCE'},
    messages: [	
    { senderName: 'Lotaly Tegit',
    timestamp: 1478976601434,
