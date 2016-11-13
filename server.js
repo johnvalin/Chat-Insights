@@ -42,7 +42,11 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 	        var name = history[0].senderName;
 	        var time = history[0].timestamp;
 	        for (var message in history) {
-		        if (history[message].senderName != name) {
+			console.log(history[message].body);
+			if (history[message].body === undefined || history[message].body == "") {
+			    continue;
+			}
+		        else if (history[message].senderName != name) {
             			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
 		        name = history[message].senderName;
 		        time = history[message].timestamp;
@@ -60,15 +64,13 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
                     "ThreadID": threadList[j].threadID, // string
                     "participantIDs": threadList[j].participantIDs, // set of strings
                     "name": threadList[j].name, // string
-                    "emoji": threadList[j].emoji, //string (no chars allowed)
-                    "nicknames": threadList[j].nicknames, // MAP of IDs to nicknames
-                    "color": threadList[j].color, // string #ffffff for example
-                    "lastInfo": {name : time}, // map of last user and last message
+                    "lastInfo": {'name' : name, 'time' : time}, // map of last user and last message
                     "messages": result // set of jsons with messages
                 }
             };
 
             console.log("Adding a new item...");
+	    console.log(params);
             docClient.put(params, function(err, data) {
                 if (err) {
                     console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
