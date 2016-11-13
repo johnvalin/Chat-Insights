@@ -1,0 +1,30 @@
+{
+  participantIDs:
+   [ '100000329726128',
+     '100000532256880',
+     '100002090688698',
+     '100002340285204',
+     '100002528536269',
+     '100009779980369',
+     '100014005007290' ],
+  name: 'Bullying',
+  emoji: { emoji: '❤' },
+  nicknames: { '100002340285204': 'Bonobo' },
+  color: '#7646ff',
+  lastInfo: {'LASTUSERID : 'TOTALMESSAGESSINCE'},
+   messages: [	
+   { senderName: 'Lotaly Tegit',
+   timestamp: 1478976601434,
+   body: 'asdfd' },
+
+   { senderName: 'Lotaly Tegit',
+   timestamp: 1478976605418,
+   body: 'asdf' }
+   ]
+}
+
+
+
+--- COMMENTS BELOW ---
+
+This is only what the API gives us. We will be putting different things in DynamoDB. 
