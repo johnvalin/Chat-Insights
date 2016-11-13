@@ -5,6 +5,14 @@ var end = 50;
 var timestamp = null;
 
 
+var AWS = require("aws-sdk");
+
+AWS.config.update({
+    region: "us-east-1", // doesn't matter while it's local but I'm running this out of Virginia so will matter when we go live
+    endpoint: "http://localhost:8000" // if you have anything running on port 8000, dynamo will crash unless you specify it
+});
+
+
 http.createServer(function (request, response) {
     response.writeHead(200, {
         'Content-Type': 'text/plain',
@@ -13,14 +21,10 @@ http.createServer(function (request, response) {
     response.end('Hello World\n');
 }).listen(1337);
 
-
-var login = require("facebook-chat-api");
-
 // Gets the thread history
 login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     if(err) return console.error(err);
-    
-    console.log('hi');
+    var docClient = new AWS.DynamoDB.DocumentClient();    
 
     function getAllHistory(threadID, n, cb) {        
         api.getThreadHistory(threadID, 1, n, null, function callback(error, history) {
@@ -28,35 +32,29 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
             else cb(error, history);
         });
     }
-    
-    console.log('hi2');
 
     api.getThreadList(start, end, 'inbox', function callback (error, threadList) {
         
     	for(var j = 0; j < threadList.length; j++) {
-    	
-    	    console.log('h4');
 
 	    //gets all the history for each thread
-	    getAllHistory(threadList[j].threadID, 100, function callback (error, history) {
+	    getAllHistory('threadList[i]', end, function callback (error, history) {
 	        if (error) console.error(error);
 	        //console.log(history);
 		
-		    console.log('hi3');
-		
-		    var result = [];
-		    var name = history[0].senderName;
-		    var time = history[0].timestamp;
-		    for (var message in history) {
-			    if (history[message].senderName != name) {
-	        			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
-			    name = history[message].senderName;
-			    time = history[message].timestamp;
-			    }
-			    else {
-				    result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: null, body: history[message].body});
-			    }
-		    }
+		var result = [];
+		var name = history[0].senderName;
+		var time = history[0].timestamp;
+		for (var message in history) {
+			if (history[message].senderName != name) {
+	    			result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: history[message].timestamp-time, body: history[message].body});
+			name = history[message].senderName;
+			time = history[message].timestamp;
+			}
+			else {
+				result.push({senderName: history[message].senderName, timestamp: history[message].timestamp, delta: null, body: history[message].body});
+			}
+		}
 	var docClient = new AWS.DynamoDB.DocumentClient();
 
 	var table = "Threads"; // that's the name of the table in AWS
@@ -87,8 +85,6 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
 	//console.log(result);
 	//put the results (items) in the table one by one
     });
-	
-	console.log('fuck callbacks');
 	
 	}
     });
