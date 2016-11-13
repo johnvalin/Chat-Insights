@@ -24,14 +24,13 @@ http.createServer(function (request, response) {
 // Get Messenger data
 var bullyID = 1120837944702683; //ThreadID for bullying training data
 var notbullyID = 1283400935053809; //ThreadID for nonbullying training data
-var conversationID = 100009779980369; // ThreadID for conversation to analyze
 
 // Gets the thread history
 login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback (err, api) {
     var docClient = new AWS.DynamoDB.DocumentClient();    
     if(err) return console.error(err);
 
-	function checkConvo(classifier) {
+	function checkConvo(classifier, conversationID) {
 	    getAllHistory(conversationID, 100, function callback(error, history) {
 	        api.getThreadInfo(conversationID, function cb(err, info) {
 	            api.getUserInfo(info.participantIDs, function c(e, obj) {
@@ -141,21 +140,21 @@ login({email: "i1029456@mvrht.com", password: "uberhacks3.0"}, function callback
                 
                 classifier.train();
                 
-                checkConvo(classifier);
+                checkConvo(classifier, threadList[j].threadID);
         
                 // Listener
-                api.listen(function callback(error, message) {
-                    api.getUserInfo(message.senderID, function cb(err, obj) {
-                        var senderName = obj[message.senderID].name;
-                        if (message.body !== undefined) {
-                            // READ DATABASE HERE
-                            // UPDATE DATABASE HERE: add 1 to total count in database for this name
-                            if (classifier.classify(message.body) === 'bully') {
-                            
-                            } // UPDATE DATABASE HERE
-                        }
-                    }
-                });
+                //api.listen(function callback(error, message) {
+                //    api.getUserInfo(message.senderID, function cb(err, obj) {
+                //        var senderName = obj[message.senderID].name;
+                //        if (message.body !== undefined) {
+                //            // READ DATABASE HERE
+                //            // UPDATE DATABASE HERE: add 1 to total count in database for this name
+                //            if (classifier.classify(message.body) === 'bully') {
+                //            
+                //            } // UPDATE DATABASE HERE
+                //        }
+                //   }
+                //});
             });
         });
 		
