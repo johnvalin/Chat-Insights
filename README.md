@@ -7,6 +7,8 @@ A dashboard for Facebook Messenger analytics.
 https://github.com/Schmavery/facebook-chat-api
 ### natural by NaturalNode
 https://github.com/NaturalNode/natural
+### Amazon DynamoDB
+http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/Welcome.html
 
 ## Authors
 * **Arun Arjunakani** - [arunarjunakani](https://github.com/arunarjunakani)
