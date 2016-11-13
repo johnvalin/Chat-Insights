@@ -23,7 +23,8 @@ var params = {
         { AttributeName: "emoji", AttributeType: "S" },
         { AttributeName: "nicknames", AttributeType: "M" },
         { AttributeName: "color", AttributeType: "S" },
-        { AttributeName: "lastInfo", AttributeType: "M" } { AttributeType: "messages", AttributeType: "SS" } // SS might be incorrect. I hope it isn't. 
+        { AttributeName: "lastInfo", AttributeType: "M" },
+        { AttributeType: "messages", AttributeType: "SS" } // SS might be incorrect. I hope it isn't. 
     ],
     ProvisionedThroughput: { // I don't know what this means
         ReadCapacityUnits: 5,
@@ -67,6 +68,7 @@ var params = {
         "emoji": "SAME AS ABOVE",
         "nicknames": "SAME AS ABOVE - make sure this is a MAP",
         "color": "SAME AS ABOVE",
+        "lastInfo": "NOTE THIS IS A MAP",
         "messages": "THIS IS A SET OF STRINGS IDK HOW THAT WORKS"
 
     }
